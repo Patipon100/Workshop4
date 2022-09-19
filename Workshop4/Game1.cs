@@ -9,6 +9,9 @@ namespace Workshop4
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
+    private Texture2D mytexture;
+    private Vector2 spritePosition = Vector2.Zero;
+
     Texture2D cloud;
 
     Vector2[] scaleCloud;
@@ -33,6 +36,7 @@ namespace Workshop4
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         cloud = Content.Load<Texture2D>("Cloud_sprite");
+        mytexture = Content.Load<Texture2D>("NatureSprite");
 
         clodPos = new Vector2[4];
         scaleCloud = new Vector2[4];
@@ -78,7 +82,44 @@ namespace Workshop4
         {
             _spriteBatch.Draw(cloud, clodPos[i], null, Color.White, 0, Vector2.Zero, scaleCloud[i], 0, 0);
         }
-        _spriteBatch.End();
+        spriteBatch.Draw(mytexture, new Vector2(0, 0), new Rectangle(256, 128,
+                256, 256), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(320, 0), new Rectangle(0, 192,
+                128, 128), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(576, 128), new Rectangle(0, 192,
+                128, 128), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(320, 0), new Rectangle(0, 192,
+                128, 128), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(576, 192), new Rectangle(256, 128,
+                256, 256), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(64, 256), new Rectangle(192, 192,
+                64, 64), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(448, 384), new Rectangle(128, 64,
+                64, 64), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(384, 256), new Rectangle(128, 192,
+                64, 64), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(256, 384), new Rectangle(128, 192,
+                64, 64), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(448, 0), new Rectangle(128, 192,
+                64, 64), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(128, 256), new Rectangle(256, 0,
+                64, 64), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(256, 192), new Rectangle(192, 0,
+                64, 64), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(576, 0), new Rectangle(128, 256,
+                128, 128), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(0, 384), new Rectangle(0, 0,
+                64, 64), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(64, 384), new Rectangle(128, 128,
+                128, 64), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(384, 192), new Rectangle(0, 128,
+                64, 64), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(192, 320), new Rectangle(128, 0,
+                64, 64), Color.White);
+        spriteBatch.Draw(mytexture, new Vector2(704, 128), new Rectangle(64, 0,
+                64, 64), Color.White);
+
+            _spriteBatch.End();
 
         base.Draw(gameTime);
     }
