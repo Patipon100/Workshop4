@@ -2,22 +2,29 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Workshop4;
-public class Game1 : Game
+namespace Workshop4
+{
+    public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
+    Texture2D cloud;
+
+    Vector2[] scaleCloud;
+    Vector2[] clodPos;
+    int[] speedCloud;
+
+    Random r = new Random();
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
-        IsMouseVisible = true;
+        //IsMouseVisible = true;
     }
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
 
         base.Initialize();
     }
@@ -25,8 +32,19 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        cloud = Content.Load<Texture2D>("Cloud_sprite");
 
-        // TODO: use this.Content to load your game content here
+        clodPos = new Vector2[4];
+        scaleCloud = new Vector2[4];
+        speedCloud = new int[4];
+
+        for (int i = 0; i < 4; i++)
+        {
+            clodPos[i].Y = r.Next(0, _graphics.GraphicsDevice.Viewport.Height - cloud.Height);
+            scaleCloud[i].X = r.Next(1, 3);
+            scaleCloud[i].Y = scaleCloud[i].X;
+            speedCloud[i] = r.Next(5, 8);
+        }
     }
 
     protected override void Update(GameTime gameTime)
@@ -34,7 +52,19 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
+        for (int i = 0; i < 4; i++)
+        {
+            clodPos[i].X += speedCloud[i];
+            if (clodPos[i].X > _graphics.GraphicsDevice.Viewport.Width)
+            {
+                clodPos[i].X = 0;
+                clodPos[i].Y = r.Next(0, _graphics.GraphicsDevice.Viewport.Height - cloud.Height);
+                scaleCloud[i].X = r.Next(1, 3);
+                scaleCloud[i].Y = scaleCloud[i].X;
+            }
+
+        }
+
 
         base.Update(gameTime);
     }
@@ -43,8 +73,14 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        // TODO: Add your drawing code here
+        _spriteBatch.Begin();
+        for (int i = 0; i < 4; i++)
+        {
+            _spriteBatch.Draw(cloud, clodPos[i], null, Color.White, 0, Vector2.Zero, scaleCloud[i], 0, 0);
+        }
+        _spriteBatch.End();
 
         base.Draw(gameTime);
     }
+}
 }
